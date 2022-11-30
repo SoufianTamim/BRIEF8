@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>products form</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="#" />
+    <script
+      src="https://kit.fontawesome.com/c7a60e43cd.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <!-- ==================================== form code  ================================= -->
+
+  <body>
+
+    <header>
+      <img src="logo.png" alt="tree" />
+      <p>cosmetic products forever</p>
+    </header>
+
+    <form id="form">
+      <h1>Enter product infos</h1>
+      <!-- =================  ================== -->
+      <div class="input-control">
+        <label> Name :</label><input type="text" id="name" />
+        <div class="error"></div>
+      </div>
+      <!-- ================= brand ================== -->
+      <div class="input-control">
+        <label>brand : </label><input type="text" id="brand" />
+        <div class="error"></div>
+      </div>
+
+      <!-- =================  ================== -->
+      <div class="input-control">
+        <label>price : </label><input id="price" type="number" />
+        <div class="error"></div>
+      </div>
+      <!-- ================== date ================= -->
+      <div class="input-control">
+        <label>production date: </label>
+        <input type="date" id="date" />
+        <div class="error"></div>
+      </div>
+      <!-- ================= Clubs input ================== -->
+      <div class="input-control">
+        <label>what type is your product :</label>
+        <select id="type">
+          <option disabled selected value>-- select an option --</option>
+          <option value="hygiène et toilette">hygiène et toilette</option>
+          <option value="soins esthétiques">soins esthétiques</option>
+          <option value="produits solaires">produits solaires</option>
+          <option value="beauté des mains et de pieds">beauté des mains et de pieds</option>
+          <option value="produits de maquillage">produits de maquillage</option>
+          <option value="entretien capillaires">entretien capillaires</option>
+          <option value="parfums">parfums</option>
+        </select>
+        <div class="error"></div>
+      </div>
+      <!-- ================= group input ================== -->
+      <div class="input-control">
+        <label> On discount : </label>
+        <div id="lastdiv">
+          <label>yes</label><input type="radio" name="discount" value="yes" />
+          <label>No</label><input type="radio" name="discount" value="no" />
+        </div>
+        <div class="error_discount"></div>
+      </div>
+      <!-- ================= submit button ================== -->
+      <input id="add" type="button" value="Add" onclick="AddRow()" />
+      <input
+        id="save"
+        title=""
+        type="button"
+        value="save"
+        onclick="saveMo(this)"
+      />
+      <input
+        id="submit"
+        type="button"
+        value="submit"
+        onclick="validateInputs('add')"
+      />
+    </form>
+    <!-- ==================================== table code  ================================= -->
+    <section>
+      <table id="table">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>brand</th>
+            <th>production date</th>
+            <th>price</th>
+            <th>type</th>
+            <th>on discount</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <button onclick="document.getElementById('product_info').style.display='block'">open</button>
+    </section>
+
+    <!-- ==================================== modal code ================================= -->
+
+    <div id="md" class="modal">
+      <div class="modal-content">
+        <span onclick="document.getElementById('md').style.display='none'" class="close"title="Close Modal">&#10005;</span>
+        <h2>Delete product</h2>
+        <p>Are you sure you want to delete this product ?</p>
+        <button type="button" onclick="document.getElementById('md').style.display='none'" class="cancelbtn">
+          Cancel
+        </button>
+        <button type="button" onclick="myDelete(this)" class="deletebtn">
+          Delete</button>
+      </div>
+    </div>
+
+
+    <div id="product_info" class="product_info">
+      <div class="content">
+        <span onclick="document.getElementById('product_info').style.display='none'" class='close' title="Close">&#10005;</span>
+        <div id="product_inf"></div>
+        <button type="button" onclick="document.getElementById('product_info').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>
+    </div>
+
+  <button onclick="localStorage.setItem('productstable', JSON.stringify(products));"></button>
+    <script src="script.js"></script>
+  </body>
+</html>
