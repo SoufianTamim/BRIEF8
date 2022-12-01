@@ -8,9 +8,35 @@ if(localStorage.productstable != null){
   products = [];
 }
 
+class Article {
+  constructor(name, brand, price, date, type, discount) {
+    this.name = name;
+    this.marque = brand;
+    this.price = price;
+    this.date = date;
+    this.type = type;
+    this.discount = discount;
+  }
+  details() {
+    let message = `
+    Name: ${this.name} <br>
+    Marque: ${this.brand} <br>
+    Prix: ${this.price} <br>
+    Date de publication: ${this.date} <br>
+    Type: ${this.type} <br>
+    On discount: ${this.discount} <br>
+    `;
+
+   productsdetails.innerHTML = message;
+
+   const productInfo = new prod.Modal(
+     document.getElementById("product_info")
+   );
+   productInfo.show();
+ }
+}
 
 
-class 
 
 
 
@@ -20,10 +46,30 @@ class
 
 
 
-function xd() {
-  document.querySelector("tbody").innerHTML = "";
-  for (i in products) {
-    document.querySelector("tbody").innerHTML += `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ xd(() => {
+   document.querySelector("tbody").innerHTML = "";
+   for (i in products) {
+     document.querySelector("tbody").innerHTML += `
 <tr>
   <td>${products[i].name}</td>
   <td>${products[i].brand}</td>
@@ -31,11 +77,13 @@ function xd() {
   <td>${products[i].date}</td>
   <td>${products[i].type}</td>
   <td>${products[i].discount}</td>  
-  <td><i id='${i}' class="fas fa-edit" onClick="Upload(this)" ></i><i  onclick="preparefordeletion(${i})"  class="fa-solid fa-trash"  ></i> <i id='${i}' class="fa-solid fa-circle-info"></i>  </td> 
+  <td><i id='${i}' class="fas fa-edit" onClick="Upload(this)" ></i><i  onclick="preparefordeletion(${i})"  class="fa-solid fa-trash"  ></i> <i id='${i}' onclick="document.getElementById('product_info').style.display='block'" class="fa-solid fa-circle-info"></i>  </td> 
 `;
-localStorage.setItem('productstable', JSON.stringify(products));
-  }
-}
+     products.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+   }
+   localStorage.setItem("productstable", JSON.stringify(products));
+
+ }, 1000);
 // ====================================== empty inputs  ===========================================//
 function emptyF() {
   document.getElementById("form").reset();
@@ -50,14 +98,17 @@ function AddRow() {
     date: document.getElementById("date").value,
     type: document.getElementById("type").value,
     discount: document.querySelector('form').discount.value
-  })
-  localStorage.setItem('productstable', JSON.stringify(products));
 
+  
+  })
+  let formD = ;
+  
   xd();
   emptyF();
   add.style.display = "none";
   submit.style.display = "block";
   arr.length = 0
+  localStorage.setItem("productstable", JSON.stringify(products));
 }
 // ====================================== delete data frm array ===========================================//
 function preparefordeletion(x) {
@@ -102,33 +153,9 @@ function saveMo(ele) {
   document.getElementById('save').style.display = "none";
   submit.setAttribute('onclick', "validateInputs('add')")
   localStorage.setItem('productstable', JSON.stringify(products));
-
-
   xd()
   emptyF()
 }
-
-
-
-
-
-
-
-function localS(){
-  let prodSer = JSON.stringify(products);
-
-  localStorage.setItem('productstable', JSON.stringify(products));
-
-
-
-
-  let prodUnSer = JSON.parse(localStorage.getItem('productstable'));
-
-  console.log(prodUnSer);
-
-}
-
-
 
 
 
@@ -319,5 +346,4 @@ const validateInputs = (x) => {
       save.style.display = "block";
     }
   }
-  arr.length = 0
 };
