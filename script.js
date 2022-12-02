@@ -1,130 +1,125 @@
 // ====================================== create table  ===========================================//
 let products = [];
 
-if(localStorage.productstable != null){
- products = JSON.parse(localStorage.getItem('productstable'));
- xd()
-}else{
-  products = [];
-}
 
-class Article {
+
+
+
+class Product {
   constructor(name, brand, price, date, type, discount) {
     this.name = name;
-    this.marque = brand;
+    this.brand = brand;
     this.price = price;
     this.date = date;
     this.type = type;
     this.discount = discount;
   }
+
+
   details() {
-    let message = `
-    Name: ${this.name} <br>
-    Marque: ${this.brand} <br>
-    Prix: ${this.price} <br>
-    Date de publication: ${this.date} <br>
-    Type: ${this.type} <br>
-    On discount: ${this.discount} <br>
+    let modal = `
+    <span> Name  : ${this.name} <br> </span>
+    <span> brand : ${this.brand} <br> </span>
+    <span> Prix  : ${this.price} <br> </span>
+    <span> production date : ${this.date} <br> </span>
+    <span> Type            : ${this.type} <br> </span>
+    <span> On discount     : ${this.discount} <br> </span>
     `;
-
-   productsdetails.innerHTML = message;
-
-   const productInfo = new prod.Modal(
-     document.getElementById("product_info")
-   );
-   productInfo.show();
+    document.getElementById("product_info").style.display= 'block';
+    document.getElementById('message').innerHTML = modal;
  }
 }
 
 
 
+if(localStorage.productstable != null){
+  localSt = JSON.parse(localStorage.getItem('productstable'));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- xd(() => {
-   document.querySelector("tbody").innerHTML = "";
-   for (i in products) {
-     document.querySelector("tbody").innerHTML += `
-<tr>
-  <td>${products[i].name}</td>
-  <td>${products[i].brand}</td>
-  <td>${products[i].price}</td>
-  <td>${products[i].date}</td>
-  <td>${products[i].type}</td>
-  <td>${products[i].discount}</td>  
-  <td><i id='${i}' class="fas fa-edit" onClick="Upload(this)" ></i><i  onclick="preparefordeletion(${i})"  class="fa-solid fa-trash"  ></i> <i id='${i}' onclick="document.getElementById('product_info').style.display='block'" class="fa-solid fa-circle-info"></i>  </td> 
-`;
-     products.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-   }
-   localStorage.setItem("productstable", JSON.stringify(products));
-
- }, 1000);
-// ====================================== empty inputs  ===========================================//
-function emptyF() {
-  document.getElementById("form").reset();
+  for (let i in  localSt) {
+    products.push(
+      new Product(
+        localSt[i].name,
+        localSt[i].brand,
+        localSt[i].price,
+        localSt[i].date,
+        localSt[i].type,
+        localSt[i].discount
+      )
+    );
+  }
+ xd()
+}else{
+  products = [];
 }
+
+
+
+
+
+
+
+function xd() {
+  document.querySelector("tbody").innerHTML = "";
+    for (i in products) {
+      document.querySelector("tbody").innerHTML += `
+      <tr>
+        <td>${products[i].name}</td>
+        <td>${products[i].brand}</td>
+        <td>${products[i].price}</td>
+        <td>${products[i].date}</td>
+        <td>${products[i].type}</td>
+        <td>${products[i].discount}</td>  
+        <td>
+          <i id='${i}' class="fas fa-edit" onClick="Upload(this)" ></i>
+          <i onclick="preparefordeletion(${i})"  class="fa-solid fa-trash" ></i>
+          <i onclick=" detailsM(${i})" class="fa-solid fa-circle-info"></i> 
+        </td> 
+      `;
+      localStorage.setItem("productstable", JSON.stringify(products));
+    }
+};
+// ====================================== empty inputs  ===========================================//
 
 // ====================================== create rows  ===========================================//
 function AddRow() {
-  products.push({
-    name: document.getElementById("name").value,
-    brand: document.getElementById("brand").value,
-    price: document.getElementById("price").value,
-    date: document.getElementById("date").value,
-    type: document.getElementById("type").value,
-    discount: document.querySelector('form').discount.value
-
-  
-  })
-  let formD = ;
-  
-  xd();
-  emptyF();
+  let inputs = new Product(
+    document.getElementById("name").value,
+    document.getElementById("brand").value,
+    document.getElementById("price").value,
+    document.getElementById("date").value,
+    document.getElementById("type").value,
+    document.querySelector('form').discount.value
+  );
+  document.getElementById("form").reset();
   add.style.display = "none";
   submit.style.display = "block";
-  arr.length = 0
   localStorage.setItem("productstable", JSON.stringify(products));
+  inputs.details();
+  products.push(inputs);
+  xd();
 }
+// ====================================== get product Details ===========================================//
+function detailsM(i) {
+  products[i].details();
+  document.getElementById('product_info').style.display='block'
+}
+
 // ====================================== delete data frm array ===========================================//
 function preparefordeletion(x) {
   document.getElementById('md').style.display = 'block';
   document.querySelector(".deletebtn").id = x
 }
-
 function myDelete(ele) {
   i = Number(ele.id);
   products.splice(i, 1)
-  xd()
-  emptyF()
+  document.getElementById("form").reset();
   document.getElementById('md').style.display = 'none';
   localStorage.setItem('productstable', JSON.stringify(products));
+  xd()
 }
 // =============================== upload data in table to inputs  =====================//
+
+
 function Upload(ele) {
   i = Number(ele.id);
   saveMo.title = ele.id;
@@ -134,11 +129,13 @@ function Upload(ele) {
   document.getElementById("date").value = products[Number(ele.id)].date;
   document.getElementById("type").value = products[Number(ele.id)].type;
   document.querySelector('form').discount.value = products[Number(ele.id)].discount;
+
   submit.setAttribute('onclick', "validateInputs('save')")
 }
 
 
 // ========================== save modifications from inputs to data table   =======================//
+
 function saveMo(ele) {
   i = Number(ele.title);
   let ind = saveMo.title;
@@ -149,15 +146,14 @@ function saveMo(ele) {
   products[Number(ind)].date = document.getElementById("date").value;
   products[Number(ind)].type = document.getElementById("type").value;
   products[Number(ind)].discount = document.querySelector('form').discount.value;
+
   document.getElementById('submit').style.display = "block";
   document.getElementById('save').style.display = "none";
   submit.setAttribute('onclick', "validateInputs('add')")
   localStorage.setItem('productstable', JSON.stringify(products));
+  document.getElementById("form").reset();
   xd()
-  emptyF()
 }
-
-
 
 
 
