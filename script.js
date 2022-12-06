@@ -94,7 +94,7 @@ function xd() {
       `;
     localStorage.setItem("productstable", JSON.stringify(products));
   }
-  tableSort();
+tableSort();  
 }
 // ====================================== create rows  ===========================================//
 function AddRow() {
