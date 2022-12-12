@@ -1,26 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
+/* ============================ form ================================= */
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #B1CCD6, #F7EFB1, #F7EFB1);
+  background:linear-gradient( 64.3deg,  rgba(254,122,152,0.81) 17.7%, rgba(255,206,134,1) 64.7%, rgba(172,253,163,0.64) 112.1% );;
   font-family: "Poppins", sans-serif;
-  transition: 0.2s ease;
+}
+#leaf{
+  width: 2rem;
+height: auto;
+padding: 0px 10px 0px 15px;
 }
 header p{
+  background-color: rgba(255, 206, 134, 0.9);
+  color: #4fb23be6;
+  font-size: 2.3rem;
+  padding: 10px 20px;
+  border-radius: 40px;
   margin: auto;
-  font-size: 2rem;
-  color: whitesmoke;
+  margin-top: 20px;
 }
-img{
-  width: 10%;
-  height: auto;
-}
+
 header{
   display: flex;
-  flex-direction:row;
-  flex:2;
-  background-color: #4E4B5C;
 }
 div {
   margin-bottom: 20px;
@@ -54,6 +56,8 @@ table {
   border-collapse: collapse;
   border-radius: 2em;
   overflow: hidden;
+  font-size: .8rem;
+  width: 100%;
 }
 td,
 th {
@@ -62,17 +66,15 @@ th {
 }
 th {
   border: 2px solid whitesmoke;
-  background-color: #348888;
-  color: white;
+  background-color: rgba(255, 151, 175, 0.81);
+  color: #7a2626;
 }
 td {
-  background-color: #91cdcd;
+  background-color: rgba(255, 206, 134, 0.73);
   text-align: center;
 }
-i {
-  padding-left: 15px;
-  font-size: 1.2rem;
-}
+
+
 input[type="text"],
 input[type="number"],
 input[type="date"] {
@@ -81,6 +83,7 @@ input[type="date"] {
   font-size: 1rem;
   padding: 10px;
   width: 95%;
+
 }
 select,
 option {
@@ -92,6 +95,7 @@ option {
   padding: 10px;
   background-color: white;
 }
+
 #lastdiv {
   display: flex;
   flex-wrap: wrap;
@@ -107,24 +111,9 @@ option {
 label {
   font-size: 1rem;
 }
-input[type="button"] {
-  padding: 10px;
-  margin-top: 10px;
-  width: 95%;
-  color: white;
-  background-color: #348888;
-  border: none;
-  border-radius: 40px;
-  font-size: 1rem;
-  box-shadow: 0 5px #869FB3;
-}
-input[type="button"]:hover {
-  background-color: #1c9898;
-}
-input[type="button"]:active {
-  background-color: #096262;
-  transform: translateY(4px);
-}
+
+/* ============= errors ==================== */
+
 .input-control.success input {
   border: 2px solid #355c7d;
   box-shadow: 10px 5px 5px #355c7d;
@@ -143,7 +132,7 @@ input[type="button"]:active {
   display: none;
 }
 .error_discount{
-   padding: 5px;
+  padding: 5px;
   color: #c06c84;
   font-size: .6rem;
   height: 20px;
@@ -151,10 +140,60 @@ input[type="button"]:active {
 input:focus {
   outline: 0;
 }
+/* ================= errors ================== */
+
+/* ================== icons ================== */
+
+i {
+  padding-left: 1%;
+  font-size: 1.2rem;
+}
+i{
+  color: #c06c84;
+}
 i:hover {
   color: #f0f0f0;
 }
-/* ============================= modal ========================= */
+.fa-trash{
+  color: rgb(255, 78, 78);
+}
+.fa-circle-info{
+  color: #355c7d;
+}
+.fa-edit{
+  color: #0086fb;
+}
+/* ================== icons ================== */
+
+
+/* ============================= buttons ========================= */
+
+input[type="button"] {
+  background-color: rgba(255, 151, 175, 0.81);
+  box-shadow: 0 5px #869FB3;
+  border-radius: 40px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #7a2626;
+  padding: 10px;
+  border: none;
+  width: 12rem;
+  display: block;
+  margin: auto;
+}
+input[type="button"]:hover {
+  opacity: .83;
+}
+input[type="button"]:active {
+  opacity: .6;
+  transform: translateY(2px);
+}
+
+/* ============================= buttons ========================= */
+
+/* ============================ form ================================= */
+
+/* ============================= modals ========================= */
 #md {
   display: none;
 }
@@ -221,3 +260,4 @@ color: whitesmoke;
   text-align: start;
   margin-left: 38%;
 }
+/* ============================= modals ========================= */

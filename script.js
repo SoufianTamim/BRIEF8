@@ -17,8 +17,8 @@ class Product {
     <span> brand : ${this.brand} <br> </span>
     <span> Prix  : ${this.price} <br> </span>
     <span> production date : ${this.date} <br> </span>
-    <span> Type            : ${this.type} <br> </span>
-    <span> On discount     : ${this.discount} <br> </span>
+    <span> Type : ${this.type} <br> </span>
+    <span> On discount : ${this.discount} <br> </span>
     `;
     document.getElementById("product_info").style.display = "block";
     document.getElementById("message").innerHTML = modal;
@@ -41,17 +41,16 @@ if (localStorage.productstable != null) {
     );
   }
   xd();
+
 } else {
   products = [];
 }
 
 function tableSort() {
-
   var table, rows, switching, i, x, y, shouldSwitch;
-
   table = document.getElementById("table");
   switching = true;
-
+  
   while (switching) {
     switching = false;
     rows = table.rows;
@@ -88,8 +87,8 @@ function xd() {
         <td>${products[i].discount}</td>  
         <td>
           <i id='${i}' class="fas fa-edit" onClick="Upload(this)" ></i>
-          <i onclick="preparefordeletion(${i})"  class="fa-solid fa-trash" ></i>
           <i onclick=" detailsM(${i})" class="fa-solid fa-circle-info"></i> 
+          <i onclick="preparefordeletion(${i})"  class="fa-solid fa-trash" ></i>
         </td> 
       `;
     localStorage.setItem("productstable", JSON.stringify(products));
@@ -111,8 +110,9 @@ function AddRow() {
   inputs.details();
   products.push(inputs);
   xd();
-  document.getElementById("form").reset();
+  
   localStorage.setItem("productstable", JSON.stringify(products));
+  document.getElementById("form").reset();
 }
 // ====================================== get product Details ===========================================//
 function detailsM(i) {
@@ -144,9 +144,7 @@ function Upload(ele) {
   document.getElementById("price").value = products[Number(ele.id)].price;
   document.getElementById("date").value = products[Number(ele.id)].date;
   document.getElementById("type").value = products[Number(ele.id)].type;
-  document.querySelector("form").discount.value =
-    products[Number(ele.id)].discount;
-
+  document.querySelector("form").discount.value = products[Number(ele.id)].discount;
   submit.setAttribute("onclick", "validateInputs('save')");
 }
 
@@ -161,8 +159,7 @@ function saveMo(ele) {
   products[Number(ind)].price = document.getElementById("price").value;
   products[Number(ind)].date = document.getElementById("date").value;
   products[Number(ind)].type = document.getElementById("type").value;
-  products[Number(ind)].discount =
-    document.querySelector("form").discount.value;
+  products[Number(ind)].discount = document.querySelector("form").discount.value;
 
   document.getElementById("submit").style.display = "block";
   document.getElementById("save").style.display = "none";
@@ -249,6 +246,10 @@ date.onblur = () => {
     setSuccess(date);
   }
 };
+
+
+
+
 // ================================== onclick function =============================================== //
 const validateInputs = (x) => {
   // ======================= variables Values  ======================//
@@ -264,11 +265,11 @@ const validateInputs = (x) => {
   } else if (nameValue.length > 30) {
     setError(
       namee,
-      "first name is too long, it should be less than 30 characters "
+      "name is too long "
     );
     arr.push(false);
   } else if (myRegex.test(nameValue) === false) {
-    setError(namee, "first  name cannot contain numbers");
+    setError(namee, "name cannot contain numbers");
     arr.push(false);
   } else {
     setSuccess(namee);
@@ -278,7 +279,7 @@ const validateInputs = (x) => {
     setError(brand, "brand is required ");
     arr.push(false);
   } else if (brandValue.length > 30) {
-    setError(brand, "brand is too long, it should be less than 30 characters ");
+    setError(brand, "brand is too long");
     arr.push(false);
   } else if (myRegex.test(brandValue) === false) {
     setError(brand, "brand cannot contain numbers");
@@ -289,7 +290,7 @@ const validateInputs = (x) => {
   //======================= phone Validation =============================//
 
   if (priceValue === "") {
-    setError(price, "price is required , can't be empty ");
+    setError(price, "price required");
     arr.push(false);
   } else if (priceValue.length > 30) {
     setError(price, "price is too long");
@@ -299,14 +300,14 @@ const validateInputs = (x) => {
   }
   //======================= email Validation =============================//
   if (typeValue === "") {
-    setError(type, "type is required");
+    setError(type, "type required");
     arr.push(false);
   } else {
     setSuccess(type);
   }
   //======================= email Validation =============================//
   if (dateValue === "") {
-    setError(date, "email is required , cannot be empty ");
+    setError(date, "email required");
     arr.push(false);
   } else {
     setSuccess(date);
@@ -314,7 +315,7 @@ const validateInputs = (x) => {
   //======================= group Validation =============================//
   if (discount[0].checked == false && discount[1].checked == false) {
     document.querySelector(".error_discount").innerHTML =
-      "Please choose if product on discount or no ";
+      "Please choose if product on discount or No ";
     arr.push(false);
   } else {
     document.querySelector(".error_discount").innerHTML = "";
