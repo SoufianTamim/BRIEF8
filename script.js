@@ -1,6 +1,7 @@
 // ====================================== create table  ===========================================//
 let products = [];
 
+
 class Product {
   constructor(name, brand, price, date, type, discount) {
     this.name = name;
@@ -97,22 +98,21 @@ tableSort();
 }
 // ====================================== create rows  ===========================================//
 function AddRow() {
-  let inputs = new Product(
-    document.getElementById("name").value,
-    document.getElementById("brand").value,
-    document.getElementById("price").value,
-    document.getElementById("date").value,
-    document.getElementById("type").value,
-    document.querySelector("form").discount.value
-  );
-  add.style.display = "none";
-  submit.style.display = "block";
-  inputs.details();
-  products.push(inputs);
-  xd();
-  
-  localStorage.setItem("productstable", JSON.stringify(products));
-  document.getElementById("form").reset();
+
+	  let inputs = new Product(
+	    document.getElementById("name").value,
+	    document.getElementById("brand").value,
+	    document.getElementById("price").value,
+	    document.getElementById("date").value,
+	    document.getElementById("type").value,
+	    document.querySelector("form").discount.value
+	  );
+	  inputs.details();
+	  products.push(inputs);
+	  xd();
+	  
+    localStorage.setItem("productstable", JSON.stringify(products));
+    document.getElementById("form").reset();
 }
 // ====================================== get product Details ===========================================//
 function detailsM(i) {
@@ -145,7 +145,9 @@ function Upload(ele) {
   document.getElementById("date").value = products[Number(ele.id)].date;
   document.getElementById("type").value = products[Number(ele.id)].type;
   document.querySelector("form").discount.value = products[Number(ele.id)].discount;
-  submit.setAttribute("onclick", "validateInputs('save')");
+  document.getElementById("add").style.display = "none";
+  document.getElementById("save").style.display = "block";
+  // submit.setAttribute("onclick", "validateInputs('save')");
 }
 
 // ========================== save modifications from inputs to data table   =======================//
@@ -161,9 +163,9 @@ function saveMo(ele) {
   products[Number(ind)].type = document.getElementById("type").value;
   products[Number(ind)].discount = document.querySelector("form").discount.value;
 
-  document.getElementById("submit").style.display = "block";
+  document.getElementById("add").style.display = "block";
   document.getElementById("save").style.display = "none";
-  submit.setAttribute("onclick", "validateInputs('add')");
+  // submit.setAttribute("onclick", "validateInputs('add')");
   localStorage.setItem("productstable", JSON.stringify(products));
   document.getElementById("form").reset();
   xd();
@@ -180,7 +182,7 @@ const discount = document.getElementsByName("discount");
 
 let myRegex = /^[a-zA-Z.]+(\s[a-zA-Z.+'-]+)*\s?$/;
 
-const arr = [];
+let arr = [];
 // ============================ event listner adding ====================================== //
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -248,10 +250,8 @@ date.onblur = () => {
 };
 
 
-
-
 // ================================== onclick function =============================================== //
-const validateInputs = (x) => {
+const valiForm = (x) => {
   // ======================= variables Values  ======================//
   const nameValue = namee.value;
   const brandValue = brand.value;
@@ -298,21 +298,27 @@ const validateInputs = (x) => {
   } else {
     setSuccess(price);
   }
+
   //======================= email Validation =============================//
+
   if (typeValue === "") {
     setError(type, "type required");
     arr.push(false);
   } else {
     setSuccess(type);
   }
+
   //======================= email Validation =============================//
+
   if (dateValue === "") {
     setError(date, "email required");
     arr.push(false);
   } else {
     setSuccess(date);
   }
+
   //======================= group Validation =============================//
+
   if (discount[0].checked == false && discount[1].checked == false) {
     document.querySelector(".error_discount").innerHTML =
       "Please choose if product on discount or No ";
@@ -320,15 +326,15 @@ const validateInputs = (x) => {
   } else {
     document.querySelector(".error_discount").innerHTML = "";
   }
-  if (arr.length != 0) {
-    submit.style.display = "block";
-  } else if (arr.length == 0) {
-    if (x === "add") {
-      submit.style.display = "none";
-      add.style.display = "block";
-    } else {
-      submit.style.display = "none";
-      save.style.display = "block";
-    }
+  
+  if (arr.length === 0){
+    AddRow();
+    arr.lenght === 0;
+  } else{
+    console.log("nope");
+    arr = []
   }
+
+
+
 };

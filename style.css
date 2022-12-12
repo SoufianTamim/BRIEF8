@@ -128,7 +128,7 @@ label {
   font-size: .6rem;
   height: 20px;
 }
-#save, #add{
+#save{
   display: none;
 }
 .error_discount{
